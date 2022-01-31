@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<center><h1>Ecriptador</h1></center>
+	<br/>
+	 <style>
+
+   input {
+     width: 150px;
+     padding: 5px;
+
+   }
+html, body {
+  width: 100%;
+  height:100%;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+	h1   {color:black, background: black; font-family: "Copperplate"; }
+	p    {color: black;}
+	button { box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24); }
+	input {border: none;}
+
+
+	div {
+
+  width: 200px;
+  height: 30px;
+  background: linear-gradient(-45deg, #fff, #fff, #fff, #fff);
+  transition: width 3s;
+}
+
+div:hover{width: 300px;}
+
+
+	</style>
+
+
+</head>
+	<body>
+	<center><p>Inserte Texto</p></center>	
+	<center><div><input type="text" name="Encriptar"></div></center>
+	<center><button type="submit" onclick ="encriptar(this)">Encriptar</button></center>
+	<center><button type="submit" onclick="desencriptar(this)">Desencriptar</button></center>		
+	<br/>
+	<center><p>Texto Ecritado</p></center>	
+	<center><div><input type="text" id="myInput" name = 'Desencriptar' disabled=""></div></center>	
+	<center><button onclick="myFunction()">Copiar</button></center>
+	<center><button id="clearbutton"> Limpiar Focus</button></center>
+
+<script>
+
+
+	function encriptar(elemento){
+	var codigo = document.getElementsByTagName("input")[0].value;
+	var codigoEncriptar = btoa(codigo);
+	document.getElementsByTagName('input')[1].value = codigoEncriptar;
+	}
+	
+	function desencriptar(elemento){
+	var codigo = document.getElementsByTagName("input")[0].value;
+	var codigoDescodigicar = atob(codigo);
+	document.getElementsByTagName('input')[1].value = codigoDescodigicar;
+	}
+
+	function myFunction() {
+  	var copyText = document.getElementById("myInput");
+  	copyText.select();
+ 	 navigator.clipboard.writeText(copyText.value);
+	}
+
+	// Creamos variable que almacenara el ID a borrar
+	var inputfocused = "";
+
+// Le añadimos función de borrar al botón
+	document.getElementById("clearbutton").onclick = limpiaCampo;
+
+// En este caso concreto seleccionamos todos los input text y password
+// para una selección más precisa se puede usa una clase
+// para una selección más general, se puede usar solo 'input'
+	var elements = document.querySelectorAll("input[type='text'],input[type='password']");
+// Por cada input field le añadimos una funcion 'onFocus'
+	for (var i = 0; i < elements.length; i++) {
+  		elements[i].addEventListener("focus", function() {
+    // Guardamos la ID del elemento al que hacemos 'focus'
+   	 inputfocused = this;
+  	});
+	}
+
+	function limpiaCampo() {
+  //Utilizamos el elemento al que hacemos focus para borrar el campo.
+  	inputfocused.value = "";
+	}
+	
+</script>
+</body>
+</html>
