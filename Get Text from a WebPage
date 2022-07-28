@@ -1,0 +1,55 @@
+package src.testSelenium;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+
+public class Testing {
+
+	public static void main(String[] args) throws IOException, InterruptedException{
+		// Invoke Browser
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\estefania.rios\\Desktop\\chromedriver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(4)); //
+		driver.get("https://demoqa.com/");
+		driver.manage().window().maximize();
+		driver.findElement(By.xpath("//body/div[@id='app']/div[@class='body-height']/div[@class='home-content']/div[@class='home-body']/div[@class='category-cards']/div[1]/div[1]")).click();
+		WebElement element = driver.findElement(By.id("item-0"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+		Thread.sleep(500);
+		driver.findElement(By.id("item-0")).click();
+		driver.findElement(By.id("userName")).sendKeys("Eddie 311");
+		driver.findElement(By.id("userEmail")).sendKeys("eddie@gmail.com");
+		driver.findElement(By.id("currentAddress")).sendKeys(" 34Th Street");
+		driver.findElement(By.id("permanentAddress")).sendKeys("34th Street #33");
+		WebElement element1 = driver.findElement(By.xpath("(//button[normalize-space()='Submit'])[1]"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element1);
+		Thread.sleep(500);
+		driver.findElement(By.xpath("(//button[normalize-space()='Submit'])[1]")).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@id='email']")));
+		String text = driver.findElement(By.xpath("//p[@id='email']")).getText();
+         System.out.println(text); 
+		driver.close();
+
+	}
+}
+
+
+
+
